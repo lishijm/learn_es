@@ -1,5 +1,5 @@
 #include<stdio.h>
-//int a;        若用static修饰为static int a限制作用域只能在本文件中使用
+//int a;        若用static修饰全局变量则限制作用域只能在本文件中使用
 int main(){
     int counter;
     for(counter=0;counter<5;counter++){
