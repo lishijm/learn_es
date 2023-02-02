@@ -1,8 +1,14 @@
 #include<stdio.h>
 int main(){
+    
+    /*
+    int a;
+    scanf("%d",&a);
+    putchar(a);*/
 
-    putchar(getchar());
 
+    /*
+    putchar(getchar());*/
     
     /*char a,b;
 
