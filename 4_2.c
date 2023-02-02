@@ -5,9 +5,16 @@ int main(){
     (a=b,b+=4);
     printf("%d %d %d\n",a,b,c);*/
 
-    int a=3,b=4,c=5,d=0;
-    d=a>b?b++:c++;//三目运算符，若关系式1成立则该值为关系式2，若关系式1不成立则值为关系式3
-    printf("%d %d %d %d",a,b,c,d);
+    /*int a=3,b=4,c=5,d=0;
+    d=a>b?b++:c++;
+    printf("%d %d %d %d",a,b,c,d);*/
+
+    int a=3,b=4,c=0,d=0;
+    d=(a++,++b,c++);
+    printf("%d %d %d %d\n",a,b,c,d);
+    d=(a++,b+1,a+b);
+    printf("%d %d %d %d\n",a,b,c,d);
+
 
     return 0;
 }
