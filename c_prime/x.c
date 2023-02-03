@@ -14,10 +14,14 @@ int main(){
 
     ptr1++;
     printf("ptr1 =%p,*ptr1=%d,&ptr1=%p\n",ptr1,*ptr1,&ptr1);
-
+    
+    printf("\n");
+    printf("ptr2 =%p,*ptr2=%d,&ptr2=%p\n",ptr2,*ptr2,&ptr2);
     ptr2--;
     printf("ptr2 =%p,*ptr2=%d,&ptr2=%p\n",ptr2,*ptr2,&ptr2);
 
+    printf("\n");
+    printf("ptr1 =%p,ptr2=%p\n",ptr1,ptr2);
     --ptr1;
     ++ptr2;
     printf("ptr1 =%p,ptr2=%p\n",ptr1,ptr2);
