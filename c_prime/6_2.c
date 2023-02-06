@@ -1,9 +1,9 @@
 #include<stdio.h>
 
 int main(){
-    int arr[4]={56,48,72,39},i,j,swap;
-    for(i=0;i<4-1;i++){
-        for(j=0;j<4-i-1;j++){
+    int arr[5]={66,33,52,24,88},i,j,swap;
+    for(i=1;i<5;i++){
+        for(j=0;j<5-i;j++){
             if(arr[j]>arr[j+1]){
                 swap=arr[j];
                 arr[j]=arr[j+1];
@@ -11,7 +11,7 @@ int main(){
             }
         }
     }
-    for(i=0;i<4;i++){
+    for(i=0;i<5;i++){
         printf("%d,",arr[i]);
     }
 
