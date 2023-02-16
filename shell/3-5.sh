@@ -1,6 +1,8 @@
 #! /bin/bash
 
-for i in {1,15,6,8,6,775,6}
+read num1 num2
+#for i in `seq 1 200`
+for i in `seq $num1 $num2`
 do
 	echo $i
 done
