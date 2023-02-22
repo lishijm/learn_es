@@ -1,8 +1,12 @@
+#! /bin/bash
+
 read file1 file2
 sta(){
     echo `wc $file1`
     echo `wc $file2`
 }
+#cat(){
+#}
 connect(){
     cat $file1 >>$file2
 }
