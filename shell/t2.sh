@@ -3,9 +3,6 @@ sta(){
     echo `wc $file1`
     echo `wc $file2`
 }
-#cat(){
-    
-#}
 connect(){
     cat $file1 >>$file2
 }
