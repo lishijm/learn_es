@@ -8,7 +8,9 @@ export CC RM OBJS CO SO
 mf:
 	make -C ./src/
 	make -C ./obj/
+	gcc main.c -L/mnt/hgfs/vm_share/learn_es/io/2-5/lib -lstate
 .PHONY:clean
 clean:
 	${RM} ./obj/${CO}
 	${RM} ./lib/${SO}
+	${RM} ./a.out
