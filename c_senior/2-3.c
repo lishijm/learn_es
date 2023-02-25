@@ -7,15 +7,15 @@ typedef struct{
 
 typedef struct{
     int id;
-    s stu;
+    s *sp;
 } p;
 
 
 int main(){
     p pi;
     p *pp=&pi;
-    s *sp;
-    sp=&pp->stu;
-    scanf("%d%s%d",&pp->id,sp->name,&sp->age);
-    printf("%d %s %d\n",pp->id,sp->name,sp->age);
+    s si;
+    pp->sp=&si;
+    scanf("%d%s%d",&pp->id,pp->sp->name,&pp->sp->age);
+    printf("%d %s %d\n",pp->id,pp->sp->name,pp->sp->age);
 }
