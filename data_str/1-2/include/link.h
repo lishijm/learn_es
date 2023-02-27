@@ -10,6 +10,8 @@ typedef int data_type;
 typedef struct linknode{
     data_type data;
     struct linknode *next;
-};
+}link;
+
+link *clink(void);
 
 #endif

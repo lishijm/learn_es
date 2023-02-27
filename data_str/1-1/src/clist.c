@@ -1,6 +1,6 @@
 #include"../include/list.h"
 
-list *creatlist(){
+list *creatlist(void){
     list *plist;
     plist=(list *)malloc(sizeof(list));
     if(NULL==plist){
