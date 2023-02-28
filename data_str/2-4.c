@@ -32,7 +32,7 @@ void makelink(link *phead1){
     }
 }
 
-void back(link *phead,int bn){
+link* back(link *phead,int bn){
     
     link *ptmp1=NULL;
     ptmp1=crlink();
@@ -40,6 +40,9 @@ void back(link *phead,int bn){
     ptmp2=crlink();
     ptmp1=phead->next;
     ptmp2=phead->next;
+    link *del=NULL;
+    del=crlink();
+    del=phead->next;
     
     int i;
     for(i=1;i<bn;i++){
@@ -49,8 +52,14 @@ void back(link *phead,int bn){
         ptmp2=ptmp2->next;
         ptmp1=ptmp1->next; 
     }
-    
-    printf("%d",ptmp2->data);
+    while(del->next!=ptmp2){
+        del=del->next;
+    }
+
+    del->next=ptmp2->next;
+    ptmp2->next=NULL;
+
+    return phead;
 }
 
 void output(link *p){
@@ -72,7 +81,9 @@ int main(){
     output(phead);
     int n;
     scanf("%d",&n);
-    back(phead,n);
+    
+    phead=back(phead,n);
+    output(phead);
 
     return 0;
 }
