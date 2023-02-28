@@ -46,19 +46,24 @@ link* back(link *phead,int bn){
     
     int i;
     for(i=1;i<bn;i++){
-        ptmp1=ptmp1->next;  
+        ptmp1=ptmp1->next;
     }
-    while(ptmp1->next!=NULL){
-        ptmp2=ptmp2->next;
-        ptmp1=ptmp1->next; 
+    if(ptmp1->next==NULL){
+        phead->next=(phead->next)->next;
     }
-    while(del->next!=ptmp2){
-        del=del->next;
+    else{
+        while(ptmp1->next!=NULL){
+            ptmp2=ptmp2->next;
+            ptmp1=ptmp1->next; 
+        } 
+    
+        while(del->next!=ptmp2){
+            del=del->next;
+        }
+        del->next=ptmp2->next;
+        ptmp2->next=NULL;
     }
-
-    del->next=ptmp2->next;
-    ptmp2->next=NULL;
-
+    
     return phead;
 }
 
