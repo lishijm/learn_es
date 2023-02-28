@@ -33,6 +33,7 @@ void makelink(link *phead1){
 }
 
 datat back(link *phead,int pos){
+    printf("a");
     link *ptmp1=NULL;
     ptmp1=crlink();
     link *ptmp2=NULL;
@@ -43,14 +44,13 @@ datat back(link *phead,int pos){
     int i;
     for(i=0;i<pos;i++){
         ptmp1=ptmp1->next;
-        printf("a");
     }
     while(ptmp1->next!=NULL){
         ptmp1=ptmp1->next;
         ptmp2=ptmp2->next;
     }
 
-    return ptmp2->data;
+    return (ptmp2->data);
 }
 
 void output(link *p){
@@ -65,13 +65,11 @@ void output(link *p){
 }
 
 int main(){
-    link *phead;
+    link *phead=NULL;
     phead=crlink();
-    
+
     makelink(phead);
-    int pos;
-    scanf("%d",&pos);
-    printf("%d",back(phead,pos));
+    back(phead,3);
 
     return 0;
 }
