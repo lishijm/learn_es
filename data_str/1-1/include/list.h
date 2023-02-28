@@ -12,8 +12,7 @@ typedef struct information{
     int count; 
 } list;
 
-list *creatlist();
-int del(list *p,int pos,int count);
+int del(list *p,int pos);
 int insert(list *p,int pos,listel posco);
 int output(list *p);
 

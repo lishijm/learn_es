@@ -1,7 +1,7 @@
 CC=gcc
 RM=rm -rf
-OBJ=App
-OBJS=main.o outlist.o insert.o
+OBJ=out
+OBJS=main.o outlist.o insert.o del.o
 export CC RM OBJ OBJS
 
 mf:

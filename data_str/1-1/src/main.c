@@ -25,11 +25,14 @@ int main(){
                 break;
             case 3:
                 scanf("%d",&pos);
-                scanf("%d",&posel);
                 del(plist,pos);
+                break;
             default:
                 flag=0;
+                break;
         }
+        pos=0;
+        posel=0;
     }
 
     return 0;

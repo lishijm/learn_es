@@ -1,4 +1,4 @@
-bin:App
+bin:out
 	mv ${OBJ} ../bin/
-App:${OBJS}
+${OBJ}:${OBJS}
 	${CC} ${OBJS} -o ${OBJ}
