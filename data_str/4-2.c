@@ -23,6 +23,23 @@ btr *cretree(void){
     return tmp;
 }
 
+void afternode(btr *tmp,btr *new){
+    if(new->data<=tmp->data){
+        if(NULL==tmp->left){
+            tmp->left=new;
+            return ;
+        }
+        afternode(tmp->left,new);
+    }
+    else if(new->data>tmp->data){
+        if(NULL==tmp->right){
+            tmp->right=new;
+            return ;
+        }
+        afternode(tmp->right,new);
+    }
+}
+
 void insert(btr *tree,datat ele){
     btr *tmp;
     btr *new;
@@ -37,23 +54,6 @@ void insert(btr *tree,datat ele){
     }
     else{
         afternode(tmp,new);
-    }
-}
-
-void afternode(btr *tmp,btr *new){
-    if(new->data>=tmp->right->data){
-        if(NULL==tmp->right){
-            tmp->right=new;
-            return ;
-        }
-        tmp=tmp->right;
-    }
-    if(new->data<tmp->left->data){
-        if(NULL==tmp->left){
-            tmp->left=new;
-            return ;
-        }
-        tmp=tmp->left;
     }
 }
 
