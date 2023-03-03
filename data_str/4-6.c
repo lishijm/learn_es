@@ -1,11 +1,10 @@
-//有问题
+//输出中序遍历的下一个值
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 
 int flag=1;
 int flagmain=1;
-int stop=0;
 
 typedef int datat;
 
@@ -15,6 +14,8 @@ typedef struct btre{
     struct btre *right;
     struct btre *up;
 } btr;
+
+btr *fpp;
 
 btr *cretree(void){
     btr *tmp=NULL;
@@ -62,40 +63,38 @@ void insert(btr *tree,datat ele){
     }
 }
 
-btr *firstave(btr *p,datat fele){
-    
+void firstave(btr *p,datat fele){
+    if(NULL==p){
+        return ;
+    }
     printf("%p\n",p);
     printf("%d\n",p->data);
     printf("\n");
     if(p->data==fele){
-        return p;
-        stop=1;
+        fpp=p;
     }
-    else if(stop==0){
-        *firstave(p->left,fele);
-        *firstave(p->right,fele);
-    }
+    firstave(p->left,fele);
+    firstave(p->right,fele);
 }
 
 
 void cenextnode(btr *tree,datat fele){
-    btr *fp=NULL;
-    fp=firstave(tree,fele);
-    printf("x%p\n",fp->up);
-    if(fp->up!=NULL&&fp->right==NULL&&fp->left==NULL){
-        if(fp->up->left==fp){
-            printf("%d",fp->up->data);
+    firstave(tree,fele);
+    printf("x%d\n",fpp->data);
+    if(fpp->up!=NULL&&fpp->right==NULL&&fpp->left==NULL){
+        if(fpp->up->left==fpp){
+            printf("%d",fpp->up->data);
         }
-        else if(fp->up->right==fp){
-            if(fp->up->up!=NULL){
-                printf("%d",fp->up->up->data);
+        else if(fpp->up->right==fpp){
+            if(fpp->up->up!=NULL){
+                printf("%d",fpp->up->up->data);
             }
         }
     }
-    else if(fp->right!=NULL){
-        printf("%d",fp->right->data);
+    else if(fpp->right!=NULL){
+        printf("%d",fpp->right->data);
     }
-    if (fp->right==NULL&&fp->up->up==NULL&&fp->up->right==fp){
+    if (fpp->right==NULL&&fpp->up->up==NULL&&fpp->up->right==fpp){
             printf("后面没有");
     }
 }
