@@ -2,20 +2,10 @@
 #include<string.h>
 #include<stdlib.h>
 
-typedef struct date{
-    int year,month;
-} dates;
-
-typedef struct ISBN{
-    int state,publisher,title,check;
-} ISBNs;
-
 typedef struct book_information{
     char bookname[32],author[32];
-    dates *date;
-    ISBNs *ISBN;
     float price;
-    int page;
+    int page,ISBN,year;
 } bookinfs;
 
 typedef struct book_node{
@@ -28,26 +18,6 @@ typedef struct headnode{
     nodes *next;
     struct headnode *down;
 } heads;
-
-dates *creatdate(void){
-    dates *tmp=NULL;
-    tmp=(dates *)malloc(sizeof(dates));
-    if(NULL==tmp){
-        puts("date malloc ERR");
-    }
-    memset(tmp,0,sizeof(tmp));
-    return tmp;
-}
-
-ISBNs *creatISBN(void){
-    ISBNs *tmp=NULL;
-    tmp=(ISBNs *)malloc(sizeof(ISBNs));
-    if(NULL==tmp){
-        puts("ISBN malloc ERR");
-    }
-    memset(tmp,0,sizeof(tmp));
-    return tmp;
-}
 
 bookinfs *creatbookinf(void){
     bookinfs *tmp=NULL;
@@ -79,37 +49,11 @@ heads *creathead(void){
     return tmp;
 }
 
-dates *makebookdate(void){
-    dates *newdate=NULL;
-    newdate=creatdate();
-    scanf("%d%d",&newdate->year,&newdate->month);
-
-    return newdate;
-}
-
-ISBNs *makebookISBN(void){
-    ISBNs *newISBN=NULL;
-    newISBN=creatISBN();
-    printf("请输入书籍的ISBN码\n国家/语言代码 出版商代码 书号 检查码\n");
-    scanf("%d%d%d%d",&newISBN->state,&newISBN->publisher,&newISBN->title,&newISBN->check);
-
-    return newISBN;
-}
-
 bookinfs *makebookinf(void){
     bookinfs *newinf=NULL;
     newinf=creatbookinf();
-    printf("录入时，请依次输入：\n书名 作者名 页数 价格 出版年 出版月\n");
-    scanf("%s%s%d%f",newinf->bookname,newinf->author,&newinf->page,&newinf->price);
-    
-    dates *newdate=NULL;
-    newdate=makebookdate();
-    ISBNs *newISBN=NULL;
-    newISBN=makebookISBN();
-    
-    newinf->date=newdate;
-    newinf->ISBN=newISBN;
-
+    printf("录入时，请依次输入：\n书名 作者名 页数 价格 出版年 ISBN\n");
+    scanf("%s%s%d%f%d%d",newinf->bookname,newinf->author,&newinf->page,&newinf->price,&newinf->year,&newinf->ISBN);
     return newinf;
 }
 
@@ -123,10 +67,16 @@ nodes *makenode(void){
     return newnode;
 }
 
-void makelink(heads *headnode,nodes *new,FILE *fp){
-    new->next=headnode->next;
-    headnode->next=new;
-    fwrite(new,sizeof(new),1,fp);
+heads *makelink(heads *headnode,nodes *new){
+    heads *tmphead=NULL;
+    tmphead=creathead();
+    nodes *tmpnode=NULL;
+    tmpnode=creatnode();
+    tmpnode=new;
+    tmphead=headnode;
+    tmpnode->next=tmphead->next;
+    tmphead->next=tmpnode;
+    return tmphead;
 }
 
 heads *makehead(heads *headnode,nodes *new){
@@ -136,52 +86,131 @@ heads *makehead(heads *headnode,nodes *new){
     return tmp;
 }
 
-heads* makehashtable(heads *booktable,nodes *new,FILE *fp){
-    heads *fheadbuffer=NULL;
-    fheadbuffer=creathead();
+heads *makehashtable(heads *booktable,nodes *new){
     int flag=1;
-    //while(0==feof(fp)){
-        fread(fheadbuffer, sizeof(heads), 1, fp);
-        booktable=fheadbuffer;
-        if(new->inf->author==booktable->head){
-            makelink(booktable,new,fp);
+    heads *tmphead=NULL;
+    tmphead=creathead();
+    tmphead=booktable;
+    
+    while(NULL!=tmphead->down){
+        if(0==strcmp(new->inf->author,tmphead->head)){
+            tmphead=makelink(tmphead,new);
             flag=0;
-            //break;
+            break;
         }
-        if(1==flag){
-            heads *newhead=NULL;
-            newhead=creathead();
-            newhead=makehead(booktable,new);
-            booktable->down=newhead;
-            booktable=newhead;
-            makelink(booktable,new,fp);
+        tmphead=tmphead->down; 
+    }
+    if(0==strcmp(new->inf->author,tmphead->head)){
+        tmphead=makelink(tmphead,new);
+        flag=0;
+    }
+    if(1==flag){
+        heads *newhead=NULL;
+        newhead=creathead();
+        newhead=makehead(tmphead,new);
+        tmphead->down=newhead;
+        tmphead=makelink(tmphead,new);
+    }
+    puts("A");
+    printf("%p",tmphead->next);
+}
+
+void load_data(heads *headnode,FILE *fp){
+    
+    while(0==feof(fp)){
+        nodes *newnode=NULL;
+        newnode=creatnode();
+        bookinfs *newinf;
+        newinf=creatbookinf();
+        newnode->inf=newinf;
+        char bookname[32],author[32];
+        float price;
+        int page,ISBN,year;
+        fscanf(fp,"%s%s%d%f%d%d",bookname,author,&page,&price,&year,&ISBN);
+        strcpy(newinf->bookname,bookname);
+        strcpy(newinf->author,author);
+        newinf->page=page;
+        newinf->price=price;
+        newinf->year=year;
+        newinf->ISBN=ISBN;
+        headnode=makehashtable(headnode,newnode);
+    }
+    return ;
+}
+
+void write_data(heads *headnode,FILE *fp){
+    
+    heads *tmphead=NULL;
+    tmphead=headnode;
+    nodes *tmpnode;
+    while(NULL!=tmphead->down){
+        tmpnode=headnode->next;
+        while(NULL!=tmpnode){
+            fprintf(fp,"%s%s%d%f%d%d",tmpnode->inf->bookname,tmpnode->inf->author,tmpnode->inf->page,tmpnode->inf->price,tmpnode->inf->year,tmpnode->inf->ISBN);
+            tmpnode=tmpnode->next;
         }
-    //}
+        tmphead=tmphead->down;
+    }
+    return ;
+}
+
+void list(heads *headnode){
+    
+    if(NULL==headnode->down){
+        printf("NO ONE BOOK!");
+        return ;
+    }
+    heads *tmphead=headnode->down;
+    nodes *tmpnode=NULL;
+    tmpnode=creatnode();
+    printf("%s",tmphead->down->head);
+    while(NULL!=tmphead->down){
+        tmpnode=tmphead->next;
+        while(NULL!=tmpnode->next){
+            printf("%s%s%d%f%d%d",tmpnode->inf->bookname,tmpnode->inf->author,tmpnode->inf->page,tmpnode->inf->price,tmpnode->inf->year,tmpnode->inf->ISBN);
+            tmpnode=tmpnode->next;
+        }
+        printf("%s%s%d%f%d%d",tmpnode->inf->bookname,tmpnode->inf->author,tmpnode->inf->page,tmpnode->inf->price,tmpnode->inf->year,tmpnode->inf->ISBN);
+        tmphead=tmphead->down;
+    }
+    while(NULL!=tmpnode->next){
+        printf("%s%s%d%f%d%d",tmpnode->inf->bookname,tmpnode->inf->author,tmpnode->inf->page,tmpnode->inf->price,tmpnode->inf->year,tmpnode->inf->ISBN);
+        tmpnode=tmpnode->next;
+    }
+    printf("%s%s%d%f%d%d",tmpnode->inf->bookname,tmpnode->inf->author,tmpnode->inf->page,tmpnode->inf->price,tmpnode->inf->year,tmpnode->inf->ISBN);
 }
 
 int main(int argc,char *argv[]){
     heads *headmain=NULL;
     headmain=creathead();
     int select,flag=1;
+    FILE *fp=NULL;
     
-    FILE *fp;
+    //fp=fopen(argv[1],"rw");  
+    //load_data(headmain,fp);
     
     while(flag){
         scanf("%d",&select);
         switch(select){
         case 1:
-            fp=fopen(argv[1],"r+b");
             nodes *newnode;
             newnode=creatnode();
             newnode=makenode();
-            makehashtable(headmain,newnode,fp);
+            makehashtable(headmain,newnode);
+            printf("%s",headmain->down->next->inf->bookname);
+            //printf("%s",headmain->down->down->head);
+            //write_data(headmain,fp);
+            //list(headmain);
             break;
+        case 2:
+            list(headmain);
         default:
             flag=0;
             break;
         }
     }
 
+    fclose(fp);
 
     return 0;
 }
