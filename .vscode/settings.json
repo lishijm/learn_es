@@ -5,6 +5,7 @@
         "filerw.h": "c",
         "stdio.h": "c",
         "fcntl.h": "c",
-        "stat.h": "c"
+        "stat.h": "c",
+        "unistd.h": "c"
     }
 }

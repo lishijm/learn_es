@@ -1,6 +1,8 @@
-//僵尸进程
+//wait
 #include <sys/types.h>
+#include <sys/wait.h>
 #include<stdio.h>
+#include<stdlib.h>
 #include <unistd.h>
 
 int main(int argc,char *argv[]){
@@ -11,11 +13,15 @@ int main(int argc,char *argv[]){
         printf("子进程执行\n");
         printf("当前进程%d 子进程%d\n",getpid(),pid);
         printf("父进程%d 当前进程%d\n",getppid(),getpid());
+        sleep(5);
+        exit(3);
     }
     else{
+        int status=-1;
+        pid_t pidtmp=wait(&status);
+        printf("%d %d %d\n",WEXITSTATUS(status),pidtmp,pid);
         printf("父进程执行\n");
         printf("当前进程%d 子进程%d\n",getpid(),pid);
-        while(1);
     }
     return 0;
 }
