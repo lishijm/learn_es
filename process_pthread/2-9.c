@@ -14,7 +14,7 @@ void *threadf1(void *arg){
     while(i--){
         sem_wait(&sema);
         printf("pht1 ");
-        //sleep(1);
+        //sleep(1);//制造混乱
         sem_post(&semb);
     }
 }

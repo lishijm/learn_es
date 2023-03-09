@@ -3,19 +3,20 @@
 #include<string.h>
 #include<unistd.h>
 
-pthread_mutex_t mutex;
+//pthread_mutex_t mutex;
 
 void *threadf(void *arg){
     char *p=(char *)arg;
     static char buf[11]={0};
+    //不使用静态就可以想象为两个buffer
     int i=0;
-    pthread_mutex_lock(&mutex);
+    //pthread_mutex_lock(&mutex);
     for(i=0;i<11;i++){
         buf[i]=p[i];
         usleep(500);
     }
-    printf("%s\n",buf);
-    pthread_mutex_unlock(&mutex);
+    printf("%c %s\n",*(char *)arg,buf);
+    //pthread_mutex_unlock(&mutex);
 }
 
 int main(){
@@ -23,7 +24,7 @@ int main(){
     pthread_t pthid2=-1;
     char str1[]="abcdefghij";
     char str2[]="1234567890";
-    pthread_mutex_init(&mutex,NULL);
+    //pthread_mutex_init(&mutex,NULL);
     if(0!=(pthread_create(&pthid1,NULL,threadf,(void *)str1))){
         printf("creat pth1 err\n");
         return -1;
