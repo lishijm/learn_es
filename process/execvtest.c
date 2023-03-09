@@ -1,10 +1,9 @@
 #include<stdio.h>
 
-int main(){
+int main(int argc,char *argv[]){
     int i;
-    char *str[2]={"execv","test"};
     for(i=0;i<2;i++){
-        printf("%s\n",str[i]);
+        printf("%s\n",argv[i]);
     }
     return 0;
 }
