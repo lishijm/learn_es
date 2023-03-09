@@ -24,9 +24,8 @@ int main(){
     umask(0);
     int i;
     int num=getdtablesize();
-    for(i=2;i<num;i++){
+    for(i=0;i<num;i++){
         close(i);
     }
-    printf("close\n");
     return 0;
 }
