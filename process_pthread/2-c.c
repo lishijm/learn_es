@@ -1,4 +1,4 @@
-//单纯的指针函数就时顺序执行，不会产生竞态
+//单纯的指针函数就是顺序执行，不会产生竞态
 #include<stdio.h>
 #include<pthread.h>
 #include<string.h>
