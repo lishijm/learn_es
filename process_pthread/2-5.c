@@ -1,6 +1,11 @@
 #include<stdio.h>
 #include<pthread.h>
-void *threadf(){
+void *threadf(void *arg){
+    if(NULL==arg){
+        return (void*)NULL;
+    }
+    int b=*(int *)arg;
+    printf("arg=%d\n",b);
     printf("thread\n");
     pthread_exit("thread_exit");
     //void pthread_exit(void *retval);
@@ -9,7 +14,13 @@ void *threadf(){
 
 int main(){
     pthread_t pthid;
-    pthread_create(&pthid,NULL,threadf,NULL);
+    int a=103;
+    //int *pa=&a;
+    pthread_create(&pthid,NULL,threadf,(void *)&a);
+    //pthread_create(&pthid,NULL,threadf,(void *)pa);
+    if(0==(pthread_cancel(pthid))){
+        printf("cancel\n");
+    }
     char *pthstate=NULL;
     pthread_join(pthid,(void*)&pthstate);//阻塞，等待线程退出。
     //int pthread_join(pthread_t thread, void **retval);
