@@ -1,3 +1,4 @@
+//闹钟信号原型
 #include<stdio.h>
 #include<stdlib.h>
 #include<errno.h>

@@ -1,3 +1,4 @@
+//闹钟信号更改为func
 #include<stdio.h>
 #include<stdlib.h>
 #include<errno.h>

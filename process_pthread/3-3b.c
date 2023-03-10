@@ -1,3 +1,4 @@
+//有名管道半双工b
 #include<stdio.h>
 #include<stdlib.h>
 #include<errno.h>
