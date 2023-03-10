@@ -17,7 +17,7 @@ void func(){
 int main(int argc,char *argv[]){
     printf("main\n");
     signal(SIGALRM,func);
-    alarm(2);
+    alarm(5);
     pause();
     printf("hello,world\n");
     return 0;
