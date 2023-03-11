@@ -8,7 +8,7 @@ export CC RM OBJS CO CA
 mf:
 	make -C ./src/
 	make -C ./obj/
-	gcc main.c -L/mnt/hgfs/vm_share/learn_es/io/2-4/lib -lstate
+	gcc main.c -Llib -lstate
 .PHONY:clean
 clean:
 	${RM} ./obj/${CO}
