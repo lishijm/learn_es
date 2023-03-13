@@ -9,6 +9,7 @@
         "unistd.h": "c",
         "semaphore.h": "c",
         "stdlib.h": "c",
-        "errno.h": "c"
+        "errno.h": "c",
+        "wait.h": "c"
     }
 }
