@@ -1,0 +1,7 @@
+env set bootcmd "dhcp;env set bootargs "root=/dev/nfs nfsroot=192.168.8.223:/home/shi/_install,nolock,nfsvers=3,tcp rw console=ttySTM0,115200 ip=dhcp";tftpboot 0xc4000000 192.168.8.223:stm32mp157a-fsmp1a.dtb;tftpboot 0xc2000000 192.168.8.223:zImage;bootz c2000000 - c4000000"
+
+env set ethaddr 00:04:9f:04:d2:35;env set bootcmd "dhcp;env set bootargs "root=/dev/nfs nfsroot=192.168.8.122:/home/shi/_install,nolock,nfsvers=3,tcp rw console=tty1 console=ttySTM0,115200 ip=dhcp";tftpboot 0xc4000000 192.168.8.122:stm32mp157d-atk.dtb;tftpboot 0xc2000000 192.168.8.122:zImage;bootz c2000000 - c4000000"
+
+env set ethaddr 00:04:9f:04:d2:35;env set bootcmd "dhcp;env set bootargs "root=/dev/nfs nfsroot=192.168.8.122:/home/shi/projrootfs,nolock,nfsvers=3,tcp rw console=tty1 console=ttySTM0,115200 ip=dhcp";tftpboot 0xc4000000 192.168.8.122:stm32mp157d-atk.dtb;tftpboot 0xc2000000 192.168.8.122:zImage;bootz c2000000 - c4000000"
+
+env set ethaddr 00:04:9f:04:d2:35;env set bootcmd "dhcp;env set bootargs "root=/dev/nfs nfsroot=192.168.8.122:/home/shi/projbuildroot,nolock,nfsvers=3,tcp rw console=tty1 console=ttySTM0,115200 ip=dhcp";tftpboot 0xc4000000 192.168.8.122:stm32mp157d-atk.dtb;tftpboot 0xc2000000 192.168.8.122:zImage;bootz c2000000 - c4000000"

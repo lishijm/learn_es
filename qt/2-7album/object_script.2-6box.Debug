@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\widget.o
+./debug\signin.o
+./debug\signup.o
+./debug\sqlite.o
+./debug\album.o
+./debug\moc_widget.o
+./debug\moc_signin.o
+./debug\moc_signup.o
+./debug\moc_album.o
+);

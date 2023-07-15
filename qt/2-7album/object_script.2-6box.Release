@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\widget.o
+./release\signin.o
+./release\signup.o
+./release\sqlite.o
+./release\album.o
+./release\moc_widget.o
+./release\moc_signin.o
+./release\moc_signup.o
+./release\moc_album.o
+);

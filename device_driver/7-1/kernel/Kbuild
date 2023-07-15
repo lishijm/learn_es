@@ -1,0 +1,1 @@
+obj-m = spi_m74hc595.o

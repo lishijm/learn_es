@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "un.h": "c",
+        "raw.h": "c",
+        "stat.h": "c",
+        "types.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "unistd.h": "c",
+        "fcntl.h": "c"
+    }
+}
