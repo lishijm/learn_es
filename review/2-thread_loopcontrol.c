@@ -16,6 +16,7 @@ void *printhreadf(){
         }
         printf("thread\r\n");
     }
+    printf("threadf ending\r\n");
 }
 
 int main(){
