@@ -22,7 +22,8 @@ void *printhreadf(){
 int main(){
     int loop_val;
     pthread_create(&thread,NULL,printhreadf,NULL);
-
+    pthread_mutex_init(&mutex,NULL);
+    
     char key_input;
     while (1){
         scanf("%c",&key_input);
